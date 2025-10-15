@@ -21,8 +21,8 @@ export async function POST(req: Request) {
       );
     }
     const response = await openai.responses.create({
-      model: "gpt-5",
-      input: "Write a one-sentence bedtime story about a unicorn.",
+      model: "gpt-4.1",
+      input: prompt,
     });
 
     const text = response.output_text ?? "";
