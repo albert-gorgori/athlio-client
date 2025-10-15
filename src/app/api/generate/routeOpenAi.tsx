@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import Groq from "groq-sdk";
+import OpenAI from "openai";
 
-const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY,
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: Request) {
@@ -20,19 +20,13 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-
-    // # LLaMA 3 API call
-    const response = await groq.chat.completions.create({
-      model: "openai/gpt-oss-20b",
-      messages: [
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
+    //# OpenAI API call
+    const response = await openai.responses.create({
+      model: "gpt-5",
+      input: prompt,
     });
 
-    const text = response.choices[0].message.content ?? "";
+    const text = response.output_text ?? "";
 
     return NextResponse.json({ response: text });
   } catch (error) {
