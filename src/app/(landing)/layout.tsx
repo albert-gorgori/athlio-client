@@ -1,5 +1,5 @@
 "use client";
-import Sidebar from "@/components/Sidebar";
+import Navbar from "@/components/Navbar";
 import { NAVBAR_HEIGHT } from "@/lib/constants";
 import React from "react";
 
@@ -10,7 +10,7 @@ const Layout = ({
 }>) => {
   return (
     <div className="h-full w-full">
-      <Sidebar />
+      <Navbar />
       <main className={`h-full flex w-full flex-col`} style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}>
         {children}
       </main>
