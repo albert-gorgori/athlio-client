@@ -2,5 +2,22 @@
   "HomePage": {
     "title": "Athlio",
     "description": "Tu plataforma de entrenamiento personal"
+  },
+  "AuthForm": {
+    "usernameLabel": "Nombre de usuario",
+    "usernamePlaceholder": "Introduce tu nombre de usuario",
+    "usernameDescription": "Este es tu nombre público.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "Introduce tu correo electrónico",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Introduce tu contraseña",
+    "submitButtonSignIn": "Iniciar sesión",
+    "submitButtonSignUp": "Registrarse",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes una cuenta? Regístrate",
+    "haveAccount": "¿Ya tienes una cuenta? Inicia sesión",
+    "invalidEmail": "Correo electrónico no válido",
+    "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+    "requiredField": "Este campo es obligatorio"
   }
 }

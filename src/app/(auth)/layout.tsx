@@ -9,11 +9,11 @@ export default function RootLayout({
     <main className="flex min-h-screen w-full justify-between font-inter">
       {" "}
       {children}
-      <div className="auth-asset">
+      {/* <div className="auth-asset">
         <div >
-          <Image className="border-2 border-black rounded-lg" src="/icons/Fin.png" width={900} height={900} alt="auth image" />
+          <Image className="border-2 border-black rounded-lg" src="/authImage.JPG" width={900} height={900} alt="auth image" />
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
