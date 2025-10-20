@@ -43,7 +43,7 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
 
     try {
@@ -53,7 +53,16 @@ const AuthForm = ({ type }: { type: string }) => {
           email: data.email,
           password: data.password,
         };
-        const newUser = userData; //await createUser(userData);
+        const res = await fetch("/api/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        });
+        if (!res.ok) {
+          const msg = await res.text().catch(() => "");
+          throw new Error(msg || "Failed to create user");
+        }
+        const newUser = await res.json();
         console.log("Signing up user:", userData);
         setUser(newUser);
       }
