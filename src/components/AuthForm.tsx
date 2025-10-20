@@ -17,7 +17,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
+import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "@/lib/constants";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(2).max(30),
@@ -28,7 +30,9 @@ const formSchema = z.object({
 const AuthForm = ({ type }: { type: string }) => {
   const t = useTranslations();
   // const router = useRouter();
+  const [user, setUser] = useState<z.infer<typeof formSchema> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,15 +43,41 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    setIsLoading(true);
+
+    try {
+      if (type === SIGN_UP_ROUTE) {
+        const userData = {
+          username: data.username,
+          email: data.email,
+          password: data.password,
+        };
+        const newUser = userData; //await createUser(userData);
+        console.log("Signing up user:", userData);
+        setUser(newUser);
+      }
+
+      if (type === SIGN_IN_ROUTE) {
+        // const response = await SignIn({
+        //   email: data.email,
+        //   password: data.password,
+        // })
+        const response = { email: data.email, password: data.password };
+        if (response) router.push("/");
+      }
+    } catch (error) {
+      console.error("Error during authentication:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
     <section className="auth-form">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          {type === "sign-up" && (
+          {type === SIGN_UP_ROUTE && (
             <FormField
               control={form.control}
               name="username"
