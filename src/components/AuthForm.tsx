@@ -1,6 +1,5 @@
 "use client";
-// import { useTranslations } from 'next-intl';
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -19,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
 
 const formSchema = z.object({
   username: z.string().min(2).max(30),
@@ -26,10 +25,11 @@ const formSchema = z.object({
   password: z.string().min(6),
 });
 
-export function ProfileForm() {}
-
-const AuthForm = () => {
+const AuthForm = ({ type }: { type: string }) => {
   const t = useTranslations();
+  // const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,22 +47,24 @@ const AuthForm = () => {
     <section className="auth-form">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("AuthForm.usernameLabel")}</FormLabel>
-                <FormControl>
-                  <Input placeholder={t("AuthForm.usernamePlaceholder")} {...field} />
-                </FormControl>
-                <FormDescription>
-                  {t("AuthForm.usernameDescription")}
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {type === "sign-up" && (
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("AuthForm.usernameLabel")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t("AuthForm.usernamePlaceholder")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
           <FormField
             control={form.control}
             name="email"
@@ -70,7 +72,10 @@ const AuthForm = () => {
               <FormItem>
                 <FormLabel>{t("AuthForm.emailLabel")}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t("AuthForm.emailPlaceholder")} {...field} />
+                  <Input
+                    placeholder={t("AuthForm.emailPlaceholder")}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -83,13 +88,20 @@ const AuthForm = () => {
               <FormItem>
                 <FormLabel>{t("AuthForm.passwordLabel")}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t("AuthForm.passwordPlaceholder")} {...field} />
+                  <Input
+                    placeholder={t("AuthForm.passwordPlaceholder")}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">{t("AuthForm.submitButtonSignIn")}</Button>
+          <Button type="submit">
+            {type === "sign-in"
+              ? t("AuthForm.submitButtonSignIn")
+              : t("AuthForm.submitButtonSignUp")}
+          </Button>
 
           <div className="space-y-3">
             <div className="flex items-center">
@@ -105,10 +117,17 @@ const AuthForm = () => {
               aria-label="Continue with Strava"
               className="w-full bg-[#FC4C02] text-white hover:bg-[#e44502] inline-flex items-center justify-center gap-2"
               onClick={() => {
-              window.location.assign("/api/auth/strava");
+                window.location.assign("/api/auth/strava");
               }}
             >
-              <Image src="/strava.svg" alt="" aria-hidden="true" width={20} height={20} className="h-5 w-5" />
+              <Image
+                src="/strava.svg"
+                alt=""
+                aria-hidden="true"
+                width={20}
+                height={20}
+                className="h-5 w-5"
+              />
               {t("AuthForm.continueWithStrava")}
             </Button>
 

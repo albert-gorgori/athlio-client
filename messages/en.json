@@ -24,8 +24,8 @@
   },
   "Button": {
     "loadMore": "Load More",
-    "submitButtonSignIn": "Submit",
-    "submitButtonSignUp": "Sign Up",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
     "cancel": "Cancel",
     "save": "Save"
   },

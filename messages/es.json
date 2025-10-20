@@ -20,4 +20,11 @@
     "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
     "requiredField": "Este campo es obligatorio"
   }
+  ,  "Button": {
+    "loadMore": "Cargar más",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  }
 }
