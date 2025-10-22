@@ -1,27 +1,9 @@
 import { NextResponse } from "next/server";
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { getClient } from "../supabaseClient";
 
 // /app/api/users/route.tsx
 // TODO: FIX: Add proper validation and error handling and TypeScript types
-
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
-const SUPABASE_URL =
-  process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const USERS_TABLE = process.env.SUPABASE_USERS_TABLE ?? "users";
-
-function getClient(): SupabaseClient {
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error(
-      "Missing Supabase configuration. Ensure SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set."
-    );
-  }
-  return createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
+const PROFILES_TABLE = "Profiles"
 
 function jsonError(message: string, status = 400) {
   return NextResponse.json({ error: message }, { status });
@@ -44,7 +26,7 @@ export async function GET(req: Request) {
 
     if (id) {
       const { data, error } = await supabase
-        .from(USERS_TABLE)
+        .from(PROFILES_TABLE)
         .select("*")
         .eq("id", id)
         .maybeSingle();
@@ -55,7 +37,7 @@ export async function GET(req: Request) {
     }
 
     const { data, error, count } = await supabase
-      .from(USERS_TABLE)
+      .from(PROFILES_TABLE)
       .select("*", { count: "exact" })
       .order(orderBy, { ascending: orderDir === "asc" })
       .range(offset, offset + limit - 1);
@@ -88,7 +70,7 @@ export async function POST(req: Request) {
     if (!body?.email) return jsonError("Missing required field: email", 422);
 
     const { data, error } = await supabase
-      .from(USERS_TABLE)
+      .from(PROFILES_TABLE)
       .insert(body)
       .select()
       .single();
@@ -124,7 +106,7 @@ export async function PATCH(req: Request) {
     delete updates.id;
 
     const { data, error } = await supabase
-      .from(USERS_TABLE)
+      .from(PROFILES_TABLE)
       .update(updates)
       .eq("id", id)
       .select()
@@ -149,7 +131,7 @@ export async function DELETE(req: Request) {
     if (!id) return jsonError("Missing id query parameter", 422);
 
     const { data, error } = await supabase
-      .from(USERS_TABLE)
+      .from(PROFILES_TABLE)
       .delete()
       .eq("id", id)
       .select()

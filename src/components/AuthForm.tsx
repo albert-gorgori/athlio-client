@@ -20,6 +20,7 @@ import { useTranslations } from "next-intl";
 // import { useRouter } from "next/router";
 import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "@/lib/constants";
 import { useRouter } from "next/navigation";
+import { signUp } from "@/app/api/auth/routes";
 
 const formSchema = z.object({
   username: z.string().min(2).max(30),
@@ -53,18 +54,12 @@ const AuthForm = ({ type }: { type: string }) => {
           email: data.email,
           password: data.password,
         };
-        const res = await fetch("/api/users", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userData),
-        });
-        if (!res.ok) {
-          const msg = await res.text().catch(() => "");
-          throw new Error(msg || "Failed to create user");
+        const res = await signUp(userData);
+        if (res.error) {
+          throw new Error(res.error || "Failed to create user");
         }
-        const newUser = await res.json();
         console.log("Signing up user:", userData);
-        setUser(newUser);
+        // setUser(res);
       }
 
       if (type === SIGN_IN_ROUTE) {
