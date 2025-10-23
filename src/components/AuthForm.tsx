@@ -20,7 +20,8 @@ import { useTranslations } from "next-intl";
 // import { useRouter } from "next/router";
 import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "@/lib/constants";
 import { useRouter } from "next/navigation";
-import { signUp } from "@/app/api/auth/routes";
+import { signUp, signIn} from "@/app/api/auth/routes";
+import { AuthResult } from "@/types/userTypes";
 
 const formSchema = z.object({
   username: z.string().min(2).max(30),
@@ -31,7 +32,7 @@ const formSchema = z.object({
 const AuthForm = ({ type }: { type: string }) => {
   const t = useTranslations();
   // const router = useRouter();
-  const [user, setUser] = useState<z.infer<typeof formSchema> | null>(null);
+  const [user, setUser] = useState<AuthResult| null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -59,16 +60,18 @@ const AuthForm = ({ type }: { type: string }) => {
           throw new Error(res.error || "Failed to create user");
         }
         console.log("Signing up user:", userData);
-        // setUser(res);
+        setUser(res);
       }
 
       if (type === SIGN_IN_ROUTE) {
-        // const response = await SignIn({
-        //   email: data.email,
-        //   password: data.password,
-        // })
-        const response = { email: data.email, password: data.password };
-        if (response) router.push("/");
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        })
+        if (response) {
+          setUser(response);
+          router.push("/");
+        }
       }
     } catch (error) {
       console.error("Error during authentication:", error);

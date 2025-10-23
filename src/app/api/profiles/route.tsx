@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getClient } from "../supabaseClient";
+import { getClient } from "../../../utils/supabase/client";
 
 // /app/api/users/route.tsx
 // TODO: FIX: Add proper validation and error handling and TypeScript types

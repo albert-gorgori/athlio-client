@@ -1,13 +1,10 @@
 import type { Session, User } from "@supabase/supabase-js";
-import { getClient } from "../supabaseClient";
+import { getClient } from "../../../utils/supabase/client";
+import { AuthResult } from "@/types/userTypes";
 
 const supabaseClient = getClient();
 
-export type AuthResult = {
-  user: User | null;
-  session: Session | null;
-  error: string | null;
-};
+
 
 /**
  * Sign in with email and password.
@@ -54,11 +51,13 @@ try {
         return { user: null, session: null, error: error.message };
     }
 
-    return {
+    const responseData = {
         user: data?.user ?? null,
         session: data?.session ?? null,
         error: null,
     };
+
+    return responseData;
 } catch (err) {
     const message = err instanceof Error ? err.message : "Unexpected error during sign up.";
     return {
