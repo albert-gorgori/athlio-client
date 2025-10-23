@@ -20,7 +20,7 @@ import { useTranslations } from "next-intl";
 // import { useRouter } from "next/router";
 import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "@/lib/constants";
 import { useRouter } from "next/navigation";
-import { signUp, signIn} from "@/app/api/auth/routes";
+import { signUp, signIn} from "@/app/actions/auth/auth";
 import { AuthResult } from "@/types/userTypes";
 
 const formSchema = z.object({
