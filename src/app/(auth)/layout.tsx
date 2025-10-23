@@ -1,10 +1,17 @@
-import Image from "next/image";
+import { DASHBOARD_ROUTE } from "@/lib/constants";
+import { createClient, getUser } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Check user session
+  const user = await getUser();
+
+  if (user) redirect(DASHBOARD_ROUTE);
+
   return (
     <main className="flex min-h-screen w-full justify-between font-inter">
       {" "}
