@@ -1,18 +1,27 @@
 
 import Sidebar from "@/components/Sidebar";
-import { NAVBAR_HEIGHT } from "@/lib/constants";
+import { DASHBOARD_ROUTE, NAVBAR_HEIGHT, SIGN_IN_ROUTE } from "@/lib/constants";
 import React from "react";
 import { getUser } from "../(auth)/actions";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 const Layout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-    console.log("Auth layout rendering");
-    // Check user session
-    const user = await getUser();
-    console.log("Auth layout user:", user);
+
+   console.log("Layout root protected - starting auth check ---- ASYNC LAYOUT EN (ROOT) ----");
+  const supabase = await createClient()
+  const { data, error } = await supabase.auth.getUser()
+
+  console.log("Layout root protected - user data:", data);
+  if (error || !data?.user) {
+    redirect(SIGN_IN_ROUTE)
+  }
+  
+
   return (
     <div className="h-full w-full">
       <Sidebar />

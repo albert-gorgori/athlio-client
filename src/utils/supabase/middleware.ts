@@ -1,7 +1,6 @@
 import { DASHBOARD_ROUTE, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "@/lib/constants";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { use } from "react";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -49,6 +48,8 @@ export async function updateSession(request: NextRequest) {
   // of sync and terminate the user's session prematurely!
 
   const user = await supabase.auth.getUser();
+
+  console.log("Middleware - User session:", user);
 
   if (
     !request.nextUrl.pathname.startsWith(SIGN_IN_ROUTE) &&

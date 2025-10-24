@@ -20,14 +20,12 @@ import { useTranslations } from "next-intl";
 // import { useRouter } from "next/router";
 import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "@/lib/constants";
 import { useRouter } from "next/navigation";
-import { signUp, signIn} from "@/app/(auth)/actions";
+import { signUp } from "@/app/(auth)/actions";
+import { signIn } from "@/app/(auth)/sign-in/actions";
 import { AuthResult } from "@/types/userTypes";
+import { authFormSchema } from "@/lib/utils";
 
-const formSchema = z.object({
-  username: z.string().min(2).max(30),
-  email: z.email().min(1).max(255),
-  password: z.string().min(6),
-});
+
 
 const AuthForm = ({ type }: { type: string }) => {
   const t = useTranslations();
@@ -36,10 +34,11 @@ const AuthForm = ({ type }: { type: string }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  const formSchema = authFormSchema(type)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
       email: "",
       password: "",
     },
@@ -51,7 +50,7 @@ const AuthForm = ({ type }: { type: string }) => {
     try {
       if (type === SIGN_UP_ROUTE) {
         const userData = {
-          username: data.username,
+          firstName: data.firstName,
           email: data.email,
           password: data.password,
         };
@@ -87,7 +86,7 @@ const AuthForm = ({ type }: { type: string }) => {
           {type === SIGN_UP_ROUTE && (
             <FormField
               control={form.control}
-              name="username"
+              name="firstName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t("AuthForm.usernameLabel")}</FormLabel>

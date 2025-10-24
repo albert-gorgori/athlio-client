@@ -1,6 +1,5 @@
-import { DASHBOARD_ROUTE } from "@/lib/constants";
-import { redirect } from "next/navigation";
-import { getUser } from "./actions";
+import { createClient } from "@/utils/supabase/server";
+
 
 export default async function RootLayout({
   children,
@@ -8,12 +7,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  console.log("Auth layout rendering");
-  // Check user session
-  const user = await getUser();
-  console.log("Auth layout user:", user);
-
-  // if (user) redirect(DASHBOARD_ROUTE);
+   console.log("Layout root protected - starting auth check ---- ASYNC LAYOUT EN (ROOT) ----");
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+  
+    console.log("Layout root protected - user data:", data);
+    
 
   return (
     <main className="flex min-h-screen w-full justify-between font-inter">
