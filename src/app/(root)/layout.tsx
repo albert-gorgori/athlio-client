@@ -4,6 +4,7 @@ import { NAVBAR_HEIGHT, SIGN_IN_ROUTE } from "@/lib/constants";
 import React from "react";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import UserNavbar from "@/components/UserNavbar";
 
 const Layout = async ({
   children,
@@ -23,8 +24,9 @@ const Layout = async ({
 
   return (
     <div className="h-full w-full">
+      <UserNavbar />
       <Sidebar />
-      <main className={`h-full flex w-full flex-col`} style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}>
+      <main className={`h-full flex w-full flex-col`}>
         {children}
       </main>
     </div>

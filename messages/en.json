@@ -37,7 +37,8 @@
     "blog": "Blog",
     "support": "Support",
     "signIn": "Sign In",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "signOut": "Sign Out"
   },
   "OtherButton":{
     "googleConnect": "Connect with Google",

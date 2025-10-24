@@ -24,7 +24,7 @@ function Navbar({ isAuthPages }: { isAuthPages?: boolean }) {
       className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur"
       style={{ height: NAVBAR_HEIGHT }}
     >
-      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between px-4">
+      <div className="mx-auto flex h-full w-full  items-center justify-between px-12">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/android-logo-big.png"
@@ -47,7 +47,6 @@ function Navbar({ isAuthPages }: { isAuthPages?: boolean }) {
             </Link>
           ))}
         </nav>
-        {!isAuthPages && (
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost">
               <Link href={SIGN_IN_ROUTE}>{t("Navigation.signIn")}</Link>
@@ -56,7 +55,6 @@ function Navbar({ isAuthPages }: { isAuthPages?: boolean }) {
               <Link href={SIGN_UP_ROUTE}>{t("Navigation.getStarted")}</Link>
             </Button>
           </div>
-        )}
       </div>
     </header>
   );

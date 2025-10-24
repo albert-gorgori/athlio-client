@@ -1,4 +1,5 @@
 export const NAVBAR_HEIGHT = 64; // in pixels
+export const USER_NAVBAR_HEIGHT = 50; // in pixels
 export const SIGN_IN_ROUTE = 'sign-in';
 export const SIGN_UP_ROUTE = 'sign-up';
 export const DASHBOARD_ROUTE = 'dashboard';
