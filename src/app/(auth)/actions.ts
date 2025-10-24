@@ -1,203 +1,95 @@
 "use server";
-import { z } from "zod";
-import { validatedAction } from "@/lib/auth/middleware";
-import { redirect } from "next/navigation";
+
 import { createClient } from "@/utils/supabase/server";
-import {config} from "@/config";
-import { DASHBOARD_ROUTE } from "@/lib/constants";
+import { AuthResult } from "@/types/userTypes";
+import { redirect } from "next/dist/client/components/navigation";
 
-const signInSchema = z.object({
-  email: z.string().email().min(3).max(255),
-  password: z.string().min(8).max(100),
-});
-
-export const signIn = validatedAction(signInSchema, async (data) => {
+/**
+ * Sign in with email and password.
+ */
+export async function signIn(params: {
+  email: string;
+  password: string;
+}): Promise<AuthResult> {
   const supabase = await createClient();
-  const { email, password } = data;
-
-  const { data: signInData, error } = await supabase.auth.signInWithPassword({
+  const { email, password } = params;
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
-  if (error) {
-    return { error: "Invalid credentials. Please try again." };
-  }
-  const { data: userData, error: userDataError } = await supabase
-    .from("user_data")
-    .select("*")
-    .eq("user_id", signInData.user?.id)
-    .single();
+  return {
+    user: data?.user ?? null,
+    session: data?.session ?? null,
+    error: error?.message ?? null,
+  };
+}
 
-  if (userDataError && userDataError.code === "PGRST116") {
-    // No user_data entry found, create one
-    const { error: insertError } = await supabase
-      .from("user_data")
-      .insert({ user_id: signInData.user?.id });
-    if (insertError) {
-      console.error("Error creating user_data entry:", insertError);
-      // Consider how you want to handle this error
-    }
-  }
-  // If sign-in is successful, redirect to dashboard
-  redirect(DASHBOARD_ROUTE);
-});
-
-const signUpSchema = z.object({
-  username: z.string().min(2).max(30),
-  email: z.string().email(),
-  password: z.string().min(8),
-});
-
-export const signUp = validatedAction(signUpSchema, async (data, formData) => {
-  const supabase = await createClient();
-  const { email, password } = data;
-
-  // const existingUser = await supabase
-  //   .select()
-  //   .from('auth.users')
-  //   .where(eq(users.email, email))
-  //   .limit(1);
-
-  // if (existingUser.length > 0) {
-  //   return { error: 'User already exists.' };
-  // }
-
-  // const passwordHash = await hashPassword(password);
-
-  // const newUser: NewUser = {
-  //   email,
-  //   passwordHash,
-  //   role: 'owner', // Default role, will be overridden if there's an invitation
-  // };
-
-  // const [createdUser] = await db.insert(users).values(newUser).returning();
-
-  // if (!createdUser) {
-  //   return { error: 'Failed to create user. Please try again.' };
-  // }
-
-  // let teamId: number;
-  // let userRole: string;
-  // let createdTeam: typeof teams.$inferSelect | null = null;
-
-  // if (inviteId) {
-  //   // Check if there's a valid invitation
-  //   const [invitation] = await db
-  //     .select()
-  //     .from(invitations)
-  //     .where(
-  //       and(
-  //         eq(invitations.id, parseInt(inviteId)),
-  //         eq(invitations.email, email),
-  //         eq(invitations.status, 'pending')
-  //       )
-  //     )
-  //     .limit(1);
-
-  //   if (invitation) {
-  //     teamId = invitation.teamId;
-  //     userRole = invitation.role;
-
-  //     await db
-  //       .update(invitations)
-  //       .set({ status: 'accepted' })
-  //       .where(eq(invitations.id, invitation.id));
-
-  //     await logActivity(teamId, createdUser.id, ActivityType.ACCEPT_INVITATION);
-
-  //     [createdTeam] = await db
-  //       .select()
-  //       .from(teams)
-  //       .where(eq(teams.id, teamId))
-  //       .limit(1);
-  //   } else {
-  //     return { error: 'Invalid or expired invitation.' };
-  //   }
-  // } else {
-  //   // Create a new team if there's no invitation
-  //   const newTeam: NewTeam = {
-  //     name: `${email}'s Team`,
-  //   };
-
-  //   [createdTeam] = await db.insert(teams).values(newTeam).returning();
-
-  //   if (!createdTeam) {
-  //     return { error: 'Failed to create team. Please try again.' };
-  //   }
-
-  //   teamId = createdTeam.id;
-  //   userRole = 'owner';
-
-  //   await logActivity(teamId, createdUser.id, ActivityType.CREATE_TEAM);
-  // }
-
-  // const newTeamMember: NewTeamMember = {
-  //   userId: createdUser.id,
-  //   teamId: teamId,
-  //   role: userRole,
-  // };
-
-  // await Promise.all([
-  //   db.insert(teamMembers).values(newTeamMember),
-  //   logActivity(teamId, createdUser.id, ActivityType.SIGN_UP),
-  //   setSession(createdUser),
-  // ]);
-
-  // const redirectTo = formData.get('redirect') as string | null;
-  // if (redirectTo === 'checkout') {
-  //   const priceId = formData.get('priceId') as string;
-  //   return createCheckoutSession({ team: createdTeam, priceId });
-  // }
-
-  const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-    email,
-    password,
-  });
-  if (signUpError) {
-    return { error: signUpError.message };
-  }
-  // Check if user_data entry exists and create i
-  const { error: insertError } = await supabase
-    .from("user_data")
-    .insert({ user_id: signUpData?.user?.id });
-
-  if (insertError) {
-    console.error("Error creating user_data entry:", insertError);
-    // Consider how you want to handle this error
-  }
-  redirect("/app");
-});
-export const signInWithMagicLink = validatedAction(
-  z.object({
-    email: z.string().email(),
-    redirect: z.string().optional(),
-    priceId: z.string().optional(),
-  }),
-  async (data) => {
+/**
+ * Sign up with email and password.
+ * If email confirmation is enabled, session will be null until the user verifies their email.
+ */
+export async function signUp(params: {
+  username: string;
+  email: string;
+  password: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  metadata?: Record<string, any>;
+}): Promise<AuthResult> {
+  try {
     const supabase = await createClient();
-    const { email, priceId } = data;
-    const redirectTo = `${config.domainName}/api/auth/callback`;
-
-    const { error } = await supabase.auth.signInWithOtp({
+    const { email, password, metadata } = params;
+    const { data, error } = await supabase.auth.signUp({
       email,
-      options: {
-        emailRedirectTo: `${redirectTo}?priceId=${encodeURIComponent(
-          priceId || ""
-        )}&redirect=${encodeURIComponent("/test")}`,
-      },
+      password,
+      options: { data: metadata },
     });
+
     if (error) {
-      console.error("Error sending magic link:", error);
-      return { error: error.message };
+      return { user: null, session: null, error: error.message };
     }
 
-    return { success: "Magic link sent to your email." };
+    const responseData = {
+      user: data?.user ?? null,
+      session: data?.session ?? null,
+      error: null,
+    };
+
+    return responseData;
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Unexpected error during sign up.";
+    return {
+      user: null,
+      session: null,
+      error: message,
+    };
   }
-);
+}
 
 export const signOut = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
   redirect("/sign-in");
+};
+
+export const getUser = async () => {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error) {
+    return null;
+  }
+
+  return user;
+};
+
+export const getSession = async () => {
+  const supabase = await createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  return session;
 };

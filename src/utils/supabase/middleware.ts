@@ -1,5 +1,7 @@
+import { DASHBOARD_ROUTE, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "@/lib/constants";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { use } from "react";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -46,7 +48,20 @@ export async function updateSession(request: NextRequest) {
   // If this is not done, you may be causing the browser and server to go out
   // of sync and terminate the user's session prematurely!
 
-  await supabase.auth.getUser();
+  const user = await supabase.auth.getUser();
+
+  if (
+    !request.nextUrl.pathname.startsWith(SIGN_IN_ROUTE) &&
+    !request.nextUrl.pathname.startsWith(SIGN_UP_ROUTE) &&
+    user.error
+  ) {
+    return NextResponse.redirect(new URL(SIGN_IN_ROUTE, request.url));
+  }
+
+  if(request.nextUrl.pathname.startsWith("/") && !user.error) {
+    // User is logged in and trying to access root, redirect to dashboard
+    return NextResponse.redirect(new URL(DASHBOARD_ROUTE, request.url));
+  }
 
   return supabaseResponse;
 }

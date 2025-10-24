@@ -20,7 +20,7 @@ import { useTranslations } from "next-intl";
 // import { useRouter } from "next/router";
 import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "@/lib/constants";
 import { useRouter } from "next/navigation";
-import { signUp, signIn} from "@/app/actions/auth/auth";
+import { signUp, signIn} from "@/app/(auth)/actions";
 import { AuthResult } from "@/types/userTypes";
 
 const formSchema = z.object({
@@ -135,7 +135,7 @@ const AuthForm = ({ type }: { type: string }) => {
             )}
           />
           <Button type="submit">
-            {type === "sign-in"
+            {type === SIGN_IN_ROUTE
               ? t("AuthForm.submitButtonSignIn")
               : t("AuthForm.submitButtonSignUp")}
           </Button>

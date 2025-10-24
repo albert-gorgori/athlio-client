@@ -1,13 +1,18 @@
-"use client";
+
 import Sidebar from "@/components/Sidebar";
 import { NAVBAR_HEIGHT } from "@/lib/constants";
 import React from "react";
+import { getUser } from "../(auth)/actions";
 
-const Layout = ({
+const Layout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+    console.log("Auth layout rendering");
+    // Check user session
+    const user = await getUser();
+    console.log("Auth layout user:", user);
   return (
     <div className="h-full w-full">
       <Sidebar />

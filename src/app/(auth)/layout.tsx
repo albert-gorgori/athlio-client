@@ -1,16 +1,19 @@
 import { DASHBOARD_ROUTE } from "@/lib/constants";
-import { createClient, getUser } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { getUser } from "./actions";
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  console.log("Auth layout rendering");
   // Check user session
   const user = await getUser();
+  console.log("Auth layout user:", user);
 
-  if (user) redirect(DASHBOARD_ROUTE);
+  // if (user) redirect(DASHBOARD_ROUTE);
 
   return (
     <main className="flex min-h-screen w-full justify-between font-inter">
