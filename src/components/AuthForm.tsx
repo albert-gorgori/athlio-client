@@ -24,6 +24,7 @@ import { signUp } from "@/app/(auth)/actions";
 import { signIn } from "@/app/(auth)/sign-in/actions";
 import { AuthResult } from "@/types/userTypes";
 import { authFormSchema } from "@/lib/utils";
+import { Loader, LoaderCircle } from "lucide-react";
 
 
 
@@ -119,12 +120,14 @@ const AuthForm = ({ type }: { type: string }) => {
           />
           <FormField
             control={form.control}
+            
             name="password"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t("AuthForm.passwordLabel")}</FormLabel>
                 <FormControl>
                   <Input
+                    type="password"
                     placeholder={t("AuthForm.passwordPlaceholder")}
                     {...field}
                   />
@@ -133,7 +136,8 @@ const AuthForm = ({ type }: { type: string }) => {
               </FormItem>
             )}
           />
-          <Button type="submit">
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />}
             {type === SIGN_IN_ROUTE
               ? t("AuthForm.submitButtonSignIn")
               : t("AuthForm.submitButtonSignUp")}
