@@ -38,7 +38,15 @@
     "support": "Support",
     "signIn": "Sign In",
     "getStarted": "Get Started",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "home": "Home",
+    "workouts": "Workouts",
+    "calendar": "Calendar",
+    "coachChat": "Coach Chat",
+    "policies": "Policies"
   },
   "OtherButton":{
     "googleConnect": "Connect with Google",

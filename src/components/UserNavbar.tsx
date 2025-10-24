@@ -1,4 +1,4 @@
-import { USER_NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../lib/constants";
+import { USER_NAVBAR_HEIGHT} from "../lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React, { } from "react";
@@ -28,8 +28,8 @@ function Navbar() {
         
 
           <div className="flex items-center gap-2">
-            
-            <Button className="cursor-pointer" variant="ghost" onClick={signOut}>
+
+            <Button className="cursor-pointer" onClick={signOut}>
               {t("Navigation.signOut")}
             </Button>
           </div>
