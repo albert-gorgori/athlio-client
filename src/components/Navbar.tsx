@@ -1,7 +1,7 @@
 import { NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../lib/constants";
 import Image from "next/image";
 import Link from "next/link";
-import React, { use } from "react";
+import React, { } from "react";
 import { Button } from "./ui/button";
 import { useTranslations } from "next-intl";
 
@@ -17,7 +17,7 @@ const navItems: NavItem[] = [
   { href: "/support", label: "Navigation.support" },
 ];
 
-function Navbar() {
+function Navbar({ isAuthPages }: { isAuthPages?: boolean }) {
   const t = useTranslations();
   return (
     <header
@@ -47,15 +47,16 @@ function Navbar() {
             </Link>
           ))}
         </nav>
-
-        <div className="flex items-center gap-2">
-          <Button asChild variant="ghost">
-            <Link href={SIGN_IN_ROUTE}>{t("Navigation.signIn")}</Link>
-          </Button>
-          <Button asChild>
-            <Link href={SIGN_UP_ROUTE}>{t("Navigation.getStarted")}</Link>
-          </Button>
-        </div>
+        {!isAuthPages && (
+          <div className="flex items-center gap-2">
+            <Button asChild variant="ghost">
+              <Link href={SIGN_IN_ROUTE}>{t("Navigation.signIn")}</Link>
+            </Button>
+            <Button asChild>
+              <Link href={SIGN_UP_ROUTE}>{t("Navigation.getStarted")}</Link>
+            </Button>
+          </div>
+        )}
       </div>
     </header>
   );

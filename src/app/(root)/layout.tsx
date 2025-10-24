@@ -1,8 +1,7 @@
 
 import Sidebar from "@/components/Sidebar";
-import { DASHBOARD_ROUTE, NAVBAR_HEIGHT, SIGN_IN_ROUTE } from "@/lib/constants";
+import { NAVBAR_HEIGHT, SIGN_IN_ROUTE } from "@/lib/constants";
 import React from "react";
-import { getUser } from "../(auth)/actions";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 

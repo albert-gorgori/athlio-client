@@ -5,7 +5,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "./ui/sheet";
 
 type NavItem = {
   href: string;
@@ -64,6 +64,10 @@ function MobileNav() {
                 side="left"
                 className="w-[264px] border-none p-0 bg-background"
               >
+
+                <SheetHeader className="sr-only">
+                  <SheetTitle>Menú de navegación</SheetTitle>
+                </SheetHeader>
                 <div className="flex h-full flex-col">
                   <SheetClose asChild>
                     <Link
