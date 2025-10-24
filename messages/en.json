@@ -14,13 +14,15 @@
     "submitButtonSignIn": "Sign In",
     "submitButtonSignUp": "Sign Up",
     "forgotPassword": "Forgot your password?",
-    "noAccount": "Don't have an account? Sign up",
-    "haveAccount": "Already have an account? Sign in",
     "invalidEmail": "Invalid email address",
     "passwordMinLength": "Password must be at least 6 characters long",
     "requiredField": "This field is required",
     "continueWithStrava": "Connect with Strava",
-    "signInOrSignUpWithStrava": "Sign in or Sign up with Strava"
+    "signInOrSignUpWithStrava": "Sign in or Sign up with Strava",
+    "noAccountPrompt": "Don't have an account?",
+    "haveAccountPrompt": "Already have an account?",
+    "signInTitle": "Sign In",
+    "signUpTitle": "Create an Account"
   },
   "Button": {
     "loadMore": "Load More",
@@ -28,6 +30,14 @@
     "signUp": "Sign Up",
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "Navigation": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "support": "Support",
+    "signIn": "Sign In",
+    "getStarted": "Get Started"
   },
   "OtherButton":{
     "googleConnect": "Connect with Google",

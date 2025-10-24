@@ -1,50 +1,64 @@
-import { NAVBAR_HEIGHT } from "../lib/constants";
+import { NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React, { use } from "react";
 import { Button } from "./ui/button";
 import { useTranslations } from "next-intl";
 
-const Navbar = () => {
-  const t = useTranslations("Button");
-  return (
-    <div
-      className="fixed top-0 left-0 w-full z-50 shadow-xl"
-      style={{ height: `${NAVBAR_HEIGHT}px` }}
-    >
-      <div className="flex items-center justify-between w-full py-4 px-16 bg-primary-700 text-black">
-      <Link
-        href="/"
-        className="cursor-pointer hover:!text-primary-300"
-        scroll={false}
-      >
-        <div className="flex items-center gap-2">
-        <Image
-          src="/android-logo-big.png"
-          alt="Athlio Logo"
-          width={36}
-          height={36}
-          className="w-8 h-8"
-        />
-        <div className="text-lg font-bold text-blue-500">THLIO</div>
-        </div>
-      </Link>
-
-      <div className="flex items-center gap-2 md:gap-3">
-        <Button asChild variant="ghost" size="sm">
-        <Link href="/sign-in" scroll={false}>
-          {t("signIn")}
-        </Link>
-        </Button>
-        <Button asChild size="sm">
-        <Link href="/sign-up" scroll={false}>
-          {t("signUp")}
-        </Link>
-        </Button>
-      </div>
-      </div>
-    </div>
-  );
+type NavItem = {
+  href: string;
+  label: string;
 };
+
+const navItems: NavItem[] = [
+  { href: "/features", label: "Navigation.features" },
+  { href: "/pricing", label: "Navigation.pricing" },
+  { href: "/blog", label: "Navigation.blog" },
+  { href: "/support", label: "Navigation.support" },
+];
+
+function Navbar() {
+  const t = useTranslations();
+  return (
+    <header
+      className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur"
+      style={{ height: NAVBAR_HEIGHT }}
+    >
+      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between px-4">
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/android-logo-big.png"
+            alt="Athlio logo"
+            width={28}
+            height={28}
+            priority
+          />
+          <span className="text-lg font-semibold">Athlio</span>
+        </Link>
+
+        <nav className="hidden items-center gap-6 md:flex">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {t(item.label)}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <Button asChild variant="ghost">
+            <Link href={SIGN_IN_ROUTE}>{t("Navigation.signIn")}</Link>
+          </Button>
+          <Button asChild>
+            <Link href={SIGN_UP_ROUTE}>{t("Navigation.getStarted")}</Link>
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+}
 
 export default Navbar;

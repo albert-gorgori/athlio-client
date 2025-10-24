@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import { createClient } from "@/utils/supabase/server";
 
 
@@ -15,6 +16,8 @@ export default async function RootLayout({
     
 
   return (
+    <div className="h-full w-full">
+      <Navbar isAuthPages/>
     <main className="flex min-h-screen w-full justify-between font-inter">
       {" "}
       {children}
@@ -24,5 +27,6 @@ export default async function RootLayout({
         </div>
       </div> */}
     </main>
+    </div>
   );
 }
