@@ -1,6 +1,7 @@
 import Breadcrumbs from "@/components/breadcrumbs-sidebar";
 import { CALENDAR_ROUTE } from "@/lib/constants";
 import React from "react";
+import CalendarContent from "./content";
 
 const page = () => {
   const items = [
@@ -9,7 +10,7 @@ const page = () => {
   ];
   return (
     <Breadcrumbs items={items}>
-      <div>Calendar</div>
+      <CalendarContent />
     </Breadcrumbs>
   );
 };
