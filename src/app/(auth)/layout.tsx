@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar";
+import { DASHBOARD_ROUTE } from "@/lib/constants";
 import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 
 export default async function RootLayout({
@@ -9,11 +11,15 @@ export default async function RootLayout({
 }>) {
 
    console.log("Layout root protected - starting auth check ---- ASYNC LAYOUT EN (ROOT) ----");
-    const supabase = await createClient()
-    const { data } = await supabase.auth.getUser()
   
-    console.log("Layout root protected - user data:", data);
     
+    const supabase = await createClient()
+      const { data, error } = await supabase.auth.getUser()
+    
+      console.log("Layout root protected - user data:", data);
+      if (!error || data?.user) {
+        redirect(DASHBOARD_ROUTE);
+      }
 
   return (
     <div className="h-full w-full">

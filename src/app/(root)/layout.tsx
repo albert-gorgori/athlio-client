@@ -1,10 +1,11 @@
 
-import Sidebar from "@/components/Sidebar";
-import { NAVBAR_HEIGHT, SIGN_IN_ROUTE } from "@/lib/constants";
+import {AppSidebar} from "@/components/app-sidebar";
+import { SIGN_IN_ROUTE } from "@/lib/constants";
 import React from "react";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import UserNavbar from "@/components/UserNavbar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const Layout = async ({
   children,
@@ -12,7 +13,7 @@ const Layout = async ({
   children: React.ReactNode;
 }>) => {
 
-   console.log("Layout root protected - starting auth check ---- ASYNC LAYOUT EN (ROOT) ----");
+  console.log("Layout root protected - starting auth check ---- ASYNC LAYOUT EN (ROOT) ----");
   const supabase = await createClient()
   const { data, error } = await supabase.auth.getUser()
 
@@ -24,11 +25,13 @@ const Layout = async ({
 
   return (
     <div className="h-full w-full">
-      <UserNavbar />
-      <Sidebar />
+      {/* <UserNavbar /> */}
+      <SidebarProvider>
+      <AppSidebar />
       <main className={`h-full flex w-full flex-col`}>
         {children}
       </main>
+      </SidebarProvider>
     </div>
   );
 };
