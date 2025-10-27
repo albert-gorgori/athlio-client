@@ -1,20 +1,20 @@
 import React from "react";
 import Breadcrumbs from "@/components/breadcrumbs-sidebar";
-import { WORKOUTS_ROUTE } from "@/lib/constants";
-import YourWorkouts from "./content";
+import { SETTINGS_ROUTE } from "@/lib/constants";
+import SettingsContent from "./content";
 
-const Workouts = () => {
+const Settings = () => {
   const items = [
     { title: "Navigation.overview", href: "#" },
-    { title: "Navigation.workouts", href: WORKOUTS_ROUTE, isCurrent: true },
+    { title: "Navigation.settings", href: SETTINGS_ROUTE, isCurrent: true },
   ];
   return (
     <>
       <Breadcrumbs items={items}>
-        <YourWorkouts />
+        <SettingsContent />
       </Breadcrumbs>
     </>
   );
 };
 
-export default Workouts;
+export default Settings;

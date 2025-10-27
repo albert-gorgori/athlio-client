@@ -46,7 +46,8 @@
     "workouts": "Workouts",
     "calendar": "Calendar",
     "coachChat": "Coach Chat",
-    "policies": "Policies"
+    "policies": "Policies",
+    "overview": "Overview"
   },
   "OtherButton":{
     "googleConnect": "Connect with Google",
