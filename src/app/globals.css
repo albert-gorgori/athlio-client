@@ -120,3 +120,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/80;
+  }
+
+  .auth-form {
+    @apply px-72 pt-52;
+  }
+}

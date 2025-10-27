@@ -1,1 +1,16 @@
 export const NAVBAR_HEIGHT = 64; // in pixels
+export const USER_NAVBAR_HEIGHT = 50; // in pixels
+export const SIGN_IN_ROUTE = 'sign-in';
+export const SIGN_UP_ROUTE = 'sign-up';
+export const DASHBOARD_ROUTE = 'dashboard';
+export const HOME_ROUTE = 'home';
+export const WORKOUTS_ROUTE = 'workouts';
+export const CREATE_WORKOUT_ROUTE = 'create-workout';
+export const COACH_CHAT_ROUTE = 'coach-chat';
+export const SETTINGS_ROUTE = 'settings';
+export const POLICIES_ROUTE = 'policies';
+export const CALENDAR_ROUTE = 'calendar';
+export const SUPPORT_ROUTE = 'support';
+export const ERROR_ROUTE = 'error';
+export const TERMS_OF_SERVICE_URL = '';
+export const PRIVACY_POLICY_URL = '';

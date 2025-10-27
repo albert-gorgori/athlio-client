@@ -1,11 +1,11 @@
 import React from 'react'
-import Sidebar from './Sidebar'
+
 
 const HistoricChat = () => {
   return (
     <div>
         Coaching Chats
-        <Sidebar />
+        {/* <Sidebar /> */}
     </div>
   )
 }

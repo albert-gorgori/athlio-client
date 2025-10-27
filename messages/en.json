@@ -1,5 +1,55 @@
 {
   "HomePage": {
-    "title": "Athlio"
+    "title": "Athlio",
+    "description": "Your personal training platform"
+  },
+  "AuthForm": {
+    "usernameLabel": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "usernameDescription": "This is your public display name.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submitButtonSignIn": "Sign In",
+    "submitButtonSignUp": "Sign Up",
+    "forgotPassword": "Forgot your password?",
+    "invalidEmail": "Invalid email address",
+    "passwordMinLength": "Password must be at least 6 characters long",
+    "requiredField": "This field is required",
+    "continueWithStrava": "Connect with Strava",
+    "signInOrSignUpWithStrava": "Sign in or Sign up with Strava",
+    "noAccountPrompt": "Don't have an account?",
+    "haveAccountPrompt": "Already have an account?",
+    "signInTitle": "Sign In",
+    "signUpTitle": "Create an Account"
+  },
+  "Button": {
+    "loadMore": "Load More",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "Navigation": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "support": "Support",
+    "signIn": "Sign In",
+    "getStarted": "Get Started",
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "home": "Home",
+    "workouts": "Workouts",
+    "calendar": "Calendar",
+    "coachChat": "Coach Chat",
+    "policies": "Policies"
+  },
+  "OtherButton":{
+    "googleConnect": "Connect with Google",
+    "facebookConnect": "Connect with Facebook"
   }
 }
