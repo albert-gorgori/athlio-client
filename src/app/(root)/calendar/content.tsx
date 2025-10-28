@@ -184,15 +184,25 @@ function seedEvents(today: Date): CalEvent[] {
     };
 
     return [
-        mk(1, 9, 0, 10, 30, "Daily Standup", "#0ea5e9"),
-        mk(1, 11, 0, 12, 0, "Design Review", "#22c55e"),
-        mk(2, 13, 30, 15, 0, "1:1 Meeting", "#f59e0b"),
-        mk(3, 10, 0, 11, 0, "Client Call", "#ef4444"),
-        mk(4, 16, 0, 17, 30, "Project Sync", "#8b5cf6"),
-        mk(0, 14, 0, 15, 0, "Gym", "#06b6d4"),
-        mk(5, 9, 0, 12, 0, "Workshop", "#e11d48"),
-        mkAllDay(2, 2, "Sprint Planning", "#a3e635"),
-        mkAllDay(4, 1, "Public Holiday", "#94a3b8"),
+        mk(0, 6, 0, 7, 15, "Swim Endurance 2.5k", "#0ea5e9"),
+        mk(0, 7, 30, 8, 0, "Strength/Core", "#22c55e"),
+
+        mk(1, 5, 45, 7, 15, "Bike VO2 Intervals", "#f59e0b"),
+        mk(1, 7, 15, 7, 45, "Transition Run 30'", "#ef4444"),
+
+        mk(2, 6, 30, 7, 30, "Swim Technique", "#0ea5e9"),
+        mk(2, 7, 45, 8, 30, "Easy Run 45'", "#ef4444"),
+
+        mk(3, 6, 0, 7, 0, "Track Intervals", "#ef4444"),
+        mk(3, 7, 15, 7, 45, "Mobility", "#8b5cf6"),
+
+        mk(4, 6, 30, 7, 30, "Open Water Swim", "#06b6d4"),
+        mk(4, 7, 45, 8, 30, "Easy Spin", "#f59e0b"),
+
+        mk(5, 7, 0, 9, 30, "Long Ride (Brick)", "#f59e0b"),
+        mk(5, 9, 35, 10, 20, "Brick Run", "#ef4444"),
+
+        mk(6, 7, 50, 11, 20, "Race Day — Olympic Triathlon", "#e11d48"),
     ];
 }
 
@@ -542,10 +552,17 @@ function DayColumn({ day, events }: { day: Date; events: CalEvent[] }) {
                                 }}
                                 title={`${event.title} ${fmtEventTimeRange(event)}`}
                             >
-                                <div className="px-2 py-1">
-                                    <div className="truncate font-medium">{event.title}</div>
-                                    <div className="truncate text-[10px] text-muted-foreground">{fmtEventTimeRange(event)}</div>
-                                </div>
+                                {differenceInMinutes(event.end, event.start) <= 40 ? (
+                                    <div className="px-2 py-1 flex items-center gap-1 min-w-0">
+                                        <span className="truncate whitespace-nowrap font-medium">{event.title}</span>
+                                        <span className="truncate whitespace-nowrap text-[10px] text-muted-foreground">• {fmtEventTimeRange(event)}</span>
+                                    </div>
+                                ) : (
+                                    <div className="px-2 py-1">
+                                        <div className="truncate font-medium">{event.title}</div>
+                                        <div className="truncate text-[10px] text-muted-foreground">{fmtEventTimeRange(event)}</div>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}
