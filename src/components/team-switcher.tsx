@@ -19,6 +19,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import Image from "next/image"
+import Link from "next/link"
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar()
@@ -27,7 +28,7 @@ export function TeamSwitcher() {
     <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link href="/">
                 <div className="bg-sidebar-secondary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Image
                               src="/android-logo-big.png"
@@ -40,7 +41,7 @@ export function TeamSwitcher() {
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Atlhio</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
