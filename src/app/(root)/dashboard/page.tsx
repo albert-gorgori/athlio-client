@@ -1,6 +1,6 @@
 import React from 'react'
 import DashboardContent from './content'
-import Breadcrumbs from '@/components/breadcrumbs-sidebar'
+import Breadcrumbs from '@/components/web/breadcrumbs-sidebar'
 import { DASHBOARD_ROUTE } from '@/lib/constants'
 
 

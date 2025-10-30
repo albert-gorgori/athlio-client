@@ -1,9 +1,9 @@
 "use client";
-import { NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../lib/constants";
+import { NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../../lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import {
@@ -13,7 +13,7 @@ import {
   SheetClose,
   SheetHeader,
   SheetTitle,
-} from "./ui/sheet";
+} from "../ui/sheet";
 
 type NavItem = {
   href: string;

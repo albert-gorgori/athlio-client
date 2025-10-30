@@ -1,5 +1,5 @@
 import React from "react";
-import Breadcrumbs from "@/components/breadcrumbs-sidebar";
+import Breadcrumbs from "@/components/web/breadcrumbs-sidebar";
 import { SETTINGS_ROUTE } from "@/lib/constants";
 import SettingsContent from "./content";
 

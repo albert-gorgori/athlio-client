@@ -1,5 +1,5 @@
-import MobileNav from "@/components/MobileNav";
-import Navbar from "@/components/Navbar";
+import MobileNav from "@/components/web/MobileNav";
+import Navbar from "@/components/web/Navbar";
 import { createClient } from "@/utils/supabase/server";
 import React from "react";
 

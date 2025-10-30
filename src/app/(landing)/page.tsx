@@ -117,7 +117,7 @@ const page = () => {
               <Image
                 width={1200}
                 height={675}
-                src="https://placehold.co/900x650/png?text=Workout+Builder"
+                src="/foto_run.JPG"
                 alt="Intelligent workout builder"
                 className="h-full w-full object-cover"
               />

@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import {
     Card,
     CardHeader,
@@ -22,8 +21,6 @@ import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Progress } from '@/components/ui/progress'
-
-const USER_NAVBAR_HEIGHT = 'var(--navbar-height,3.5rem)'
 
 type Metric = { label: string; value: string | number; delta?: string; trend?: 'up' | 'down' }
 type Session = { id: string; title: string; coach: string; date: string; time: string; athletes: number; status: 'Scheduled' | 'Live' | 'Completed' }
