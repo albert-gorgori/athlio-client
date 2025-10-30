@@ -1,10 +1,8 @@
 import * as React from "react";
 import { BookOpen, Bot, Settings2, SquareTerminal } from "lucide-react";
 
-import { NavMain } from "@/components/web/nav-main";
-import { NavUserLoader } from "@/components/web/nav-user";
-import NavUserServer from "@/components/web/nav-user.server";
-import { TeamSwitcher } from "@/components/web/team-switcher";
+import { NavMain } from "@/components/web/layout/shell/sidebar/nav-main";
+import { TeamSwitcher } from "@/components/web/layout/shell/sidebar/team-switcher";
 
 import {
   Sidebar,
@@ -21,6 +19,7 @@ import {
   WORKOUTS_ROUTE,
 } from "@/lib/constants";
 import { Suspense } from "react";
+import { NavUser, NavUserLoader } from "./nav-user";
 
 //TODO: Make the sidebar dynamic based on user role and permissions
 //TODO: Highlight the active sidebar item
@@ -84,7 +83,7 @@ export function AppSidebar({
       </SidebarContent>
       <SidebarFooter>
         <Suspense fallback={<NavUserLoader />}> 
-          <NavUserServer />
+          <NavUser />
         </Suspense>
       </SidebarFooter>
       <SidebarRail />

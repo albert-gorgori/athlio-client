@@ -1,4 +1,3 @@
-'use client'
 import {
   BadgeCheck,
   Bell,
@@ -22,19 +21,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
 import { signOut } from "@/app/(auth)/actions";
-import { useTranslations } from "next-intl";
-import { Skeleton } from "../ui/skeleton";
-
-type NavUserProps = {
-  user: {
-    fullName: string;
-    email: string;
-    avatar: string;
-  };
-};
+import { Skeleton } from "../../../../ui/skeleton";
+import { getTranslations } from "next-intl/server";
+import { getUserProfile } from "@/app/data/profile/require-profile";
 
 export function NavUserLoader() {
   return (
@@ -48,11 +39,10 @@ export function NavUserLoader() {
   );
 }
 
-export function NavUser({ user }: NavUserProps) {
-  const { isMobile } = useSidebar();
-  const t = useTranslations();
+export async function NavUser() {
 
-  console.log("NavUser - user data:", user);
+  const user = await getUserProfile()
+  const t = await getTranslations();
 
 
   return (
@@ -79,7 +69,7 @@ export function NavUser({ user }: NavUserProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            side={isMobile ? "bottom" : "right"}
+            side="right"
             align="end"
             sideOffset={4}
           >

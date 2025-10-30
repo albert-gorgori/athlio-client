@@ -1,4 +1,4 @@
-import Breadcrumbs from "@/components/web/breadcrumbs-sidebar";
+import Breadcrumbs from "@/components/web/layout/shell/breadcrumbs/breadcrumbs-nav";
 import { CALENDAR_ROUTE } from "@/lib/constants";
 import React from "react";
 import CalendarContent from "./content";

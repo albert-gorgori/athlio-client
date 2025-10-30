@@ -1,6 +1,6 @@
-import MobileNav from "@/components/web/MobileNav";
-import Navbar from "@/components/web/Navbar";
-import { createClient } from "@/utils/supabase/server";
+import MobileNav from "@/components/web/layout/shell/navbar/MobileNav";
+import Navbar from "@/components/web/layout/shell/navbar/Navbar";
+import { createClient } from "@/lib/supabase/server";
 import React from "react";
 
 const Layout = async ({

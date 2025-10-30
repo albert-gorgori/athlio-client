@@ -1,7 +1,7 @@
-import {AppSidebar} from "@/components/web/app-sidebar";
+import {AppSidebar} from "@/components/web/layout/shell/sidebar/app-sidebar";
 import { SIGN_IN_ROUTE } from "@/lib/constants";
 import React from "react";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { SidebarProvider } from "@/components/ui/sidebar";
 

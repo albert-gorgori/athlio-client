@@ -1,5 +1,5 @@
 "use client";
-import Breadcrumbs from "@/components/web/breadcrumbs-sidebar";
+import Breadcrumbs from "@/components/web/layout/shell/breadcrumbs/breadcrumbs-nav";
 import { COACH_CHAT_ROUTE } from "@/lib/constants";
 import React from "react";
 import ChatContent from "./content";

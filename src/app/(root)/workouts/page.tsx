@@ -1,5 +1,5 @@
 import React from "react";
-import Breadcrumbs from "@/components/web/breadcrumbs-sidebar";
+import Breadcrumbs from "@/components/web/layout/shell/breadcrumbs/breadcrumbs-nav";
 import { WORKOUTS_ROUTE } from "@/lib/constants";
 import YourWorkouts from "./content";
 

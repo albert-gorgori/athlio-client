@@ -1,4 +1,4 @@
-import AuthForm from '@/components/web/auth-form'
+import AuthForm from '@/components/web/forms/auth-form'
 import { SIGN_IN_ROUTE } from '@/lib/constants'
 import React from 'react'
 

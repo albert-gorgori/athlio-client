@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { AuthResult } from "@/types/userTypes";
 import { redirect } from "next/dist/client/components/navigation";
 import { DASHBOARD_ROUTE, ERROR_ROUTE, HOME_ROUTE } from "@/lib/constants";
