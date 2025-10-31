@@ -32,7 +32,10 @@ export async function POST(req: Request) {
     ],
     });
 
-    const text = response.choices[0].message.content ?? "";
+    
+
+    const raw = response.choices[0].message.content ?? "";
+    const text = raw.replace(/\\n/g, "\n").trim();
 
     return NextResponse.json({ response: text });
   } catch (error) {

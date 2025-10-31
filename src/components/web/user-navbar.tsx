@@ -1,8 +1,8 @@
-import { USER_NAVBAR_HEIGHT} from "../lib/constants";
+import { USER_NAVBAR_HEIGHT} from "../../lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React, { } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 import { signOut } from "@/app/(auth)/actions";
 

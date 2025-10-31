@@ -1,8 +1,8 @@
-import { NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../lib/constants";
+import { NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../../../../../lib/constants";
 import Image from "next/image";
 import Link from "next/link";
-import React, { } from "react";
-import { Button } from "./ui/button";
+import React from "react";
+import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
 type NavItem = {
@@ -11,13 +11,14 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { href: "/features", label: "Navigation.features" },
+  { href: "/", label: "Navigation.features" },
   { href: "/pricing", label: "Navigation.pricing" },
   { href: "/blog", label: "Navigation.blog" },
   { href: "/support", label: "Navigation.support" },
 ];
 
-function Navbar({ isAuthPages }: { isAuthPages?: boolean }) {
+ function Navbar({ isAuthPages }: { isAuthPages?: boolean }) {
+
   const t = useTranslations();
   return (
     <header
@@ -47,14 +48,22 @@ function Navbar({ isAuthPages }: { isAuthPages?: boolean }) {
             </Link>
           ))}
         </nav>
-          <div className="flex items-center gap-2">
-            <Button asChild variant="ghost">
-              <Link href={SIGN_IN_ROUTE}>{t("Navigation.signIn")}</Link>
+        <div className="flex items-center gap-2">
+          {isAuthPages ? (
+            <Button asChild >
+              <Link href="/dashboard">{t("Navigation.dashboard")}</Link>
             </Button>
-            <Button asChild>
-              <Link href={SIGN_UP_ROUTE}>{t("Navigation.getStarted")}</Link>
-            </Button>
-          </div>
+          ) : (
+            <>
+              <Button asChild variant="ghost">
+                <Link href={SIGN_IN_ROUTE}>{t("Navigation.signIn")}</Link>
+              </Button>
+              <Button asChild>
+                <Link href={SIGN_UP_ROUTE}>{t("Navigation.getStarted")}</Link>
+              </Button>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );

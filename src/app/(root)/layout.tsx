@@ -1,10 +1,8 @@
-
-import {AppSidebar} from "@/components/app-sidebar";
+import {AppSidebar} from "@/components/web/layout/shell/sidebar/app-sidebar";
 import { SIGN_IN_ROUTE } from "@/lib/constants";
 import React from "react";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import UserNavbar from "@/components/UserNavbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 const Layout = async ({

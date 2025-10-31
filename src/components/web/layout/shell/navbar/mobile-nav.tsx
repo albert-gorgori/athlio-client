@@ -1,11 +1,19 @@
-import { NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../lib/constants";
+"use client";
+import { NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../../../../../lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Button } from "./ui/button";
+import { Button } from "../../../../ui/button";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "./ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetClose,
+  SheetHeader,
+  SheetTitle,
+} from "../../../../ui/sheet";
 
 type NavItem = {
   href: string;
@@ -23,7 +31,7 @@ function cx(...classes: (string | false | null | undefined)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-function MobileNav() {
+function MobileNav({ isAuthPages }: { isAuthPages?: boolean }) {
   const t = useTranslations();
   const pathname = usePathname();
 
@@ -64,7 +72,6 @@ function MobileNav() {
                 side="left"
                 className="w-[264px] border-none p-0 bg-background"
               >
-
                 <SheetHeader className="sr-only">
                   <SheetTitle>Menú de navegación</SheetTitle>
                 </SheetHeader>
@@ -109,20 +116,32 @@ function MobileNav() {
                   </nav>
 
                   <div className="mt-auto flex flex-col gap-2 border-t p-4">
-                    <SheetClose asChild>
-                      <Button asChild variant="ghost" className="w-full">
-                        <Link href={SIGN_IN_ROUTE}>
-                          {t("Navigation.signIn")}
-                        </Link>
-                      </Button>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Button asChild className="w-full">
-                        <Link href={SIGN_UP_ROUTE}>
-                          {t("Navigation.getStarted")}
-                        </Link>
-                      </Button>
-                    </SheetClose>
+                    {isAuthPages ? (
+                      <SheetClose asChild>
+                        <Button asChild className="w-full">
+                          <Link href="/dashboard">
+                            {t("Navigation.dashboard")}
+                          </Link>
+                        </Button>
+                      </SheetClose>
+                    ) : (
+                      <>
+                        <SheetClose asChild>
+                          <Button asChild variant="ghost" className="w-full">
+                            <Link href={SIGN_IN_ROUTE}>
+                              {t("Navigation.signIn")}
+                            </Link>
+                          </Button>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Button asChild className="w-full">
+                            <Link href={SIGN_UP_ROUTE}>
+                              {t("Navigation.getStarted")}
+                            </Link>
+                          </Button>
+                        </SheetClose>
+                      </>
+                    )}
                   </div>
                 </div>
               </SheetContent>
@@ -140,8 +159,6 @@ function MobileNav() {
             <span className="text-lg font-semibold">Athlio</span>
           </Link>
         </div>
-
-        
       </div>
     </header>
   );

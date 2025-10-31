@@ -144,6 +144,9 @@ export interface StravaKudosUser {
 }
 
 export interface StravaActivity {
+    max_heartrate?: number | null;
+    average_heartrate?: number | null;
+    location_country?: string;
     id: StravaID;
     resource_state: number;
     external_id?: string | null;

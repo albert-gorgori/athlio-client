@@ -1,23 +1,8 @@
-"use client"
+import * as React from "react";
+import { BookOpen, Bot, Settings2, SquareTerminal } from "lucide-react";
 
-import * as React from "react"
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
-
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/web/layout/shell/sidebar/nav-main";
+import { TeamSwitcher } from "@/components/web/layout/shell/sidebar/team-switcher";
 
 import {
   Sidebar,
@@ -25,9 +10,16 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import { CALENDAR_ROUTE, COACH_CHAT_ROUTE, DASHBOARD_ROUTE, SETTINGS_ROUTE, WORKOUTS_ROUTE } from "@/lib/constants"
-
+} from "@/components/ui/sidebar";
+import {
+  CALENDAR_ROUTE,
+  COACH_CHAT_ROUTE,
+  DASHBOARD_ROUTE,
+  SETTINGS_ROUTE,
+  WORKOUTS_ROUTE,
+} from "@/lib/constants";
+import { Suspense } from "react";
+import { NavUser, NavUserLoader } from "./nav-user";
 
 //TODO: Make the sidebar dynamic based on user role and permissions
 //TODO: Highlight the active sidebar item
@@ -75,11 +67,11 @@ const data = {
       items: [],
     },
   ],
-}
+};
 
-
-
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -90,9 +82,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <Suspense fallback={<NavUserLoader />}> 
+          <NavUser />
+        </Suspense>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
