@@ -20,6 +20,8 @@ import {
 } from "@/lib/constants";
 import { Suspense } from "react";
 import { NavUser, NavUserLoader } from "./nav-user";
+import { NavSecondary } from "./nav-secondary";
+import { IconHelp, IconSearch, IconSettings } from "@tabler/icons-react";
 
 //TODO: Make the sidebar dynamic based on user role and permissions
 //TODO: Highlight the active sidebar item
@@ -59,13 +61,19 @@ const data = {
       url: WORKOUTS_ROUTE,
       icon: BookOpen,
       items: [],
+    }
+  ],
+   navSecondary: [
+    {
+      title: "Settings",
+      url: SETTINGS_ROUTE,
+      icon: IconSettings,
     },
     {
-      title: "Navigation.settings",
-      url: SETTINGS_ROUTE,
-      icon: Settings2,
-      items: [],
-    },
+      title: "Get Help",
+      url: "#",
+      icon: IconHelp,
+    }
   ],
 };
 
@@ -80,6 +88,7 @@ export function AppSidebar({
       <SidebarContent>
         <NavMain items={data.navMain} />
         {/* <NavProjects projects={data.projects} /> */}
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <Suspense fallback={<NavUserLoader />}> 

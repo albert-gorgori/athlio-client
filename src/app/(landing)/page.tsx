@@ -28,7 +28,7 @@ const page = () => {
             </p>
             <div className="mt-8 flex items-center justify-center gap-3">
               <Button asChild>
-                <a href="/signup">Get started</a>
+                <a href={SIGN_UP_ROUTE}>Get started</a>
               </Button>
               <Button asChild variant="outline">
                 <a href="#features">Learn more</a>

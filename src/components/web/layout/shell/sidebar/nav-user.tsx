@@ -26,24 +26,27 @@ import { signOut } from "@/app/(auth)/actions";
 import { Skeleton } from "../../../../ui/skeleton";
 import { getTranslations } from "next-intl/server";
 import { getUserProfile } from "@/app/data/profile/require-profile";
+import Link from "next/link";
+import { ACCOUNT_ROUTE, SETTINGS_ROUTE } from "@/lib/constants";
 
 export function NavUserLoader() {
   return (
-     <div className="flex items-center space-x-4">
-      <Skeleton className="h-12 w-12 rounded-full" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
+    //Darker skeleton for dark mode
+
+    <div className="flex items-center space-x-4 w-full">
+      <Skeleton className="h-10 w-12 rounded-full bg-gray-300 dark:bg-gray-700" />
+      <div className="space-y-2 w-full">
+        <Skeleton className="h-4 w-[80%] dark:bg-gray-300 bg-gray-700" />
+        <Skeleton className="h-4 dark:bg-gray-300 bg-gray-700" />
       </div>
     </div>
+
   );
 }
 
 export async function NavUser() {
-
-  const user = await getUserProfile()
+  const user = await getUserProfile();
   const t = await getTranslations();
-
 
   return (
     <SidebarMenu>
@@ -96,10 +99,12 @@ export async function NavUser() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+              <Link href={"/" + ACCOUNT_ROUTE} passHref>
               <DropdownMenuItem>
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
+              </Link>
               <DropdownMenuItem>
                 <CreditCard />
                 Billing

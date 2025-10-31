@@ -2,6 +2,10 @@ import "server-only";
 
 import { requireUser } from "../user/require-user";
 import { createClient } from "@/lib/supabase/server";
+import type { Tables } from "@/types/database.types"
+
+
+type Profile = Tables<"profiles">
 
 export async function getUserProfile(): Promise<{ fullName: string; email: string; avatar: string }> {
     
@@ -29,4 +33,21 @@ export async function getUserProfile(): Promise<{ fullName: string; email: strin
 
     };
   return profile;
+}
+
+// SSR: obtiene perfil + email del auth
+export async function getCurrentProfile(): Promise<{ profile: Profile | null; email: string | null }> {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return { profile: null, email: null }
+
+    const { data } = await supabase
+        .from("profiles")
+        .select(
+            "id, created_at, updated_at, full_name, avatar_url, birth_date, gender, height_cm, weight_kg, city, country, language, timezone, units, preferred_sport, sport_level, training_days_per_week, ai_personality, main_goal"
+        )
+        .eq("id", user.id)
+        .maybeSingle()
+
+    return { profile: data ?? null, email: user.email ?? null }
 }

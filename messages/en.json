@@ -48,7 +48,9 @@
     "coachChat": "Coach Chat",
     "policies": "Policies",
     "overview": "Overview",
-    "logOut": "Log Out"
+    "logOut": "Log Out",
+    "createWorkout": "Create Workout",
+    "account": "Account"
   },
   "OtherButton":{
     "googleConnect": "Connect with Google",

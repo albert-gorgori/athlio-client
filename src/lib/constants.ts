@@ -12,5 +12,6 @@ export const POLICIES_ROUTE = 'policies';
 export const CALENDAR_ROUTE = 'calendar';
 export const SUPPORT_ROUTE = 'support';
 export const ERROR_ROUTE = 'error';
+export const ACCOUNT_ROUTE = 'account';
 export const TERMS_OF_SERVICE_URL = '';
 export const PRIVACY_POLICY_URL = '';
