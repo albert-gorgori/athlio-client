@@ -26,6 +26,10 @@ const page = () => {
               <ul className="mt-6 space-y-3 text-sm">
                 <li className="flex items-start gap-2">
                   <span aria-hidden="true">✓</span>
+                  <span>AI basic insights</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span aria-hidden="true">✓</span>
                   <span>Track workouts and progress</span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -79,19 +83,19 @@ const page = () => {
                 </li>
                 <li className="flex items-start gap-2">
                   <span aria-hidden="true">✓</span>
+                  <span>AI powered reportings and specific training plans</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span aria-hidden="true">✓</span>
                   <span>Unlimited workouts and plans</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span aria-hidden="true">✓</span>
-                  <span>Advanced analytics and insights</span>
+                  <span>Advanced health monitoring</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span aria-hidden="true">✓</span>
                   <span>Personalized training templates</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span aria-hidden="true">✓</span>
-                  <span>Priority support</span>
                 </li>
               </ul>
             </CardContent>

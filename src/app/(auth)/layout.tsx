@@ -1,4 +1,4 @@
-import Navbar from "@/components/web/layout/shell/navbar/Navbar";
+import Navbar from "@/components/web/layout/shell/navbar/landing-navbar";
 import { DASHBOARD_ROUTE } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
