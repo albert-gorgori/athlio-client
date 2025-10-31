@@ -19,9 +19,11 @@ import {
   WORKOUTS_ROUTE,
 } from "@/lib/constants";
 import { Suspense } from "react";
-import { NavUser, NavUserLoader } from "./nav-user";
+import { NavUser } from "./nav-user";
 import { NavSecondary } from "./nav-secondary";
-import { IconHelp, IconSearch, IconSettings } from "@tabler/icons-react";
+import { IconHelp, IconSettings } from "@tabler/icons-react";
+import { getUserProfile } from "@/app/data/profile/require-profile";
+import { Skeleton } from "@/components/ui/skeleton";
 
 //TODO: Make the sidebar dynamic based on user role and permissions
 //TODO: Highlight the active sidebar item
@@ -61,9 +63,9 @@ const data = {
       url: WORKOUTS_ROUTE,
       icon: BookOpen,
       items: [],
-    }
+    },
   ],
-   navSecondary: [
+  navSecondary: [
     {
       title: "Settings",
       url: SETTINGS_ROUTE,
@@ -73,13 +75,11 @@ const data = {
       title: "Get Help",
       url: "#",
       icon: IconHelp,
-    }
+    },
   ],
 };
 
-export function AppSidebar({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -91,11 +91,33 @@ export function AppSidebar({
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <Suspense fallback={<NavUserLoader />}> 
-          <NavUser />
+        <Suspense fallback={<NavUserLoader />}>
+          <NavUserRender />
         </Suspense>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
+  );
+}
+
+async function NavUserRender() {
+  const user = await getUserProfile();
+
+  return (
+    <>
+      <NavUser user={user}/>
+    </>
+  );
+}
+
+function NavUserLoader() {
+  return (
+    <div className="flex items-center space-x-4 w-full">
+      <Skeleton className="h-10 w-12 rounded-full dark:bg-gray-300 bg-gray-700" />
+      <div className="space-y-2 w-full">
+        <Skeleton className="h-4 w-[80%] dark:bg-gray-300 bg-gray-700" />
+        <Skeleton className="h-4 dark:bg-gray-300 bg-gray-700" />
+      </div>
+    </div>
   );
 }

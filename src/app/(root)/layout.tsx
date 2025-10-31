@@ -16,7 +16,6 @@ const Layout = async ({
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
 
-  console.log("Layout root protected - user data:", data);
   if (error || !data?.user) {
     redirect(SIGN_IN_ROUTE);
   }

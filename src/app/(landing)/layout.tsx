@@ -1,6 +1,5 @@
 import MobileNav from "@/components/web/layout/shell/navbar/mobile-nav";
 import Navbar from "@/components/web/layout/shell/navbar/landing-navbar";
-import { createClient } from "@/lib/supabase/server";
 import React from "react";
 
 const Layout = async ({
@@ -8,18 +7,15 @@ const Layout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getUser();
-
-  console.log("Layout root - user data:", !!data?.user);
+  
 
   return (
     <div className="h-full w-full">
       <div className="md:hidden">
-        <MobileNav isAuthPages={!!data?.user} />
+        <MobileNav isAuthPages={false} />
       </div>
       <div className="hidden md:block">
-        <Navbar isAuthPages={!!data?.user} />
+        <Navbar />
       </div>
 
       <main className="h-full flex w-full flex-col">{children}</main>

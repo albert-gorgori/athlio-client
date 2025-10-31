@@ -1,9 +1,17 @@
-import { NAVBAR_HEIGHT, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "../../../../../lib/constants";
+"use client";
+import {
+  NAVBAR_HEIGHT,
+  SIGN_IN_ROUTE,
+  SIGN_UP_ROUTE,
+} from "../../../../../lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import { useProfile } from "@/hooks/use-profile";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type NavItem = {
   href: string;
@@ -17,7 +25,9 @@ const navItems: NavItem[] = [
   { href: "/support", label: "Navigation.support" },
 ];
 
- function Navbar({ isAuthPages }: { isAuthPages?: boolean }) {
+function Navbar() {
+  const { data, isLoading } = useProfile();
+  const isAuthPages = !!data?.profile;
 
   const t = useTranslations();
   return (
@@ -49,10 +59,26 @@ const navItems: NavItem[] = [
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          {isAuthPages ? (
-            <Button asChild >
-              <Link href="/dashboard">{t("Navigation.dashboard")}</Link>
-            </Button>
+          {isLoading ? (
+            <div className="flex flex-row gap-2 items-center">
+              <Skeleton className="h-8 w-20 dark:bg-gray-300 bg-gray-200" />
+              <Skeleton className="h-8 w-20 dark:bg-gray-300 bg-gray-200" />
+            </div>
+          ) : isAuthPages ? (
+            <>
+              <Avatar className="h-10 w-10 rounded-full">
+                <AvatarImage
+                  src={data.profile?.avatar_url || ""}
+                  alt={data.profile?.full_name || ""}
+                />
+                <AvatarFallback className="rounded-lg">
+                  {data.profile?.full_name?.slice(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <Button asChild >
+                <Link href="/dashboard">{t("Navigation.dashboard")}</Link>
+              </Button>
+            </>
           ) : (
             <>
               <Button asChild variant="ghost">

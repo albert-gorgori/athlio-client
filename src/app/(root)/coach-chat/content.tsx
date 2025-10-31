@@ -96,7 +96,7 @@ export default function ChatContent() {
                         </Button>
                     </div>
                     <div className="p-4 border-t">
-                        <Button variant="outline" className="w-full">Start new chat</Button>
+                        <Button variant="outline" className="w-full">+ New chat</Button>
                     </div>
                 </aside>
 
@@ -158,7 +158,7 @@ export default function ChatContent() {
                             placeholder="Type your message..."
                             className="flex-1 border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                         />
-                        <Button variant="outline" type="submit" className="cursor-pointer">
+                        <Button type="submit" className="cursor-pointer">
                             Send
                         </Button>
                     </form>

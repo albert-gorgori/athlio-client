@@ -14,16 +14,15 @@ export default async function RootLayout({
   
     
     const supabase = await createClient()
-      const { data, error } = await supabase.auth.getUser()
+    const { data, error } = await supabase.auth.getUser()
     
-      console.log("Layout root protected - user data:", data);
-      if (!error || data?.user) {
-        redirect(DASHBOARD_ROUTE);
-      }
+    if (!error || data?.user) {
+      redirect(DASHBOARD_ROUTE);
+    }
 
   return (
     <div className="h-full w-full">
-      <Navbar isAuthPages/>
+      <Navbar />
     <main className="flex min-h-screen w-full justify-between font-inter">
       {" "}
       {children}

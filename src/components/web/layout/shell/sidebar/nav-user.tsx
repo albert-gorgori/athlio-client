@@ -23,29 +23,14 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { signOut } from "@/app/(auth)/actions";
-import { Skeleton } from "../../../../ui/skeleton";
 import { getTranslations } from "next-intl/server";
-import { getUserProfile } from "@/app/data/profile/require-profile";
 import Link from "next/link";
-import { ACCOUNT_ROUTE, SETTINGS_ROUTE } from "@/lib/constants";
+import { ACCOUNT_ROUTE } from "@/lib/constants";
 
-export function NavUserLoader() {
-  return (
-    //Darker skeleton for dark mode
 
-    <div className="flex items-center space-x-4 w-full">
-      <Skeleton className="h-10 w-12 rounded-full bg-gray-300 dark:bg-gray-700" />
-      <div className="space-y-2 w-full">
-        <Skeleton className="h-4 w-[80%] dark:bg-gray-300 bg-gray-700" />
-        <Skeleton className="h-4 dark:bg-gray-300 bg-gray-700" />
-      </div>
-    </div>
 
-  );
-}
-
-export async function NavUser() {
-  const user = await getUserProfile();
+export async function NavUser({user}: {user: {fullName: string; email: string; avatar: string}}) {
+  
   const t = await getTranslations();
 
   return (
